@@ -1,22 +1,43 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useGuestStore } from "../stores/guestList";
+import { computed, onMounted, ref, defineProps } from "vue";
 import { useRoute } from "vue-router";
-const store = useGuestStore();
-import { storeToRefs } from "pinia";
-const { guests } = storeToRefs(store);
+import { supabase } from "../lib/supabase";
+
+// Accept 'id' as a prop
+const props = defineProps({
+  id: String, // Define the 'id' prop
+});
+
+const guest = ref("");
+const loading = ref(true);
 
 const route = useRoute();
-const guest = guests.value.find((guest: any) => {
-  return guest.id == route.params.id;
+onMounted(async () => {
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", route.params.id) // Or use props.id if applicable
+      .single(); // Fetch one record
+
+    if (error) {
+      throw new Error(error.message);
+    } else {
+      guest.value = data; // Assign the fetched data to guest
+    }
+  } catch (error) {
+    console.error("Error fetching guest:", error);
+  } finally {
+    loading.value = false;
+  }
 });
 
 const borderColor = computed(() => {
-  return guest.travelling_from === "Manchester"
+  return guest.value?.travelling_from === "Manchester"
     ? "#FFFF00"
-    : guest.travelling_from === "London"
+    : guest.value?.travelling_from === "London"
     ? "#FF0000"
-    : "";
+    : "#000";
 });
 </script>
 
@@ -30,8 +51,10 @@ const borderColor = computed(() => {
     <div>Department: {{ guest.department }}</div>
     <div>Meal Preference: {{ guest.meal_preference }}</div>
     <div>Travelling From: {{ guest.travelling_from }}</div>
+    <RouterLink class="guest-details__back-link" to="/guests"
+      >Go back</RouterLink
+    >
   </div>
-  <RouterLink class="guest-details__back-link" to="/">Go back</RouterLink>
 </template>
 
 <style scoped lang="scss">
@@ -113,6 +136,7 @@ const borderColor = computed(() => {
       background: #d300d3;
     }
   }
+
   &__back-link {
     display: inline-block;
     padding: 10px 20px;
@@ -132,6 +156,13 @@ const borderColor = computed(() => {
   &__back-link:active {
     background-color: #004085;
     transform: scale(0.98);
+  }
+
+  .loading {
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
+    margin-top: 50px;
   }
 }
 </style>

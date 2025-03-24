@@ -3,9 +3,7 @@ import { computed } from "vue";
 import { form } from "./helpers/formHandler";
 import { errors } from "./helpers/formHandler";
 import { resetForm } from "./helpers/formHandler";
-import { selectedCardId } from "./helpers/cardData";
 import { submitFormWithValidation } from "./helpers/validators";
-import { isUpdateMode } from "./helpers/cardData";
 </script>
 
 <template>
@@ -70,10 +68,12 @@ import { isUpdateMode } from "./helpers/cardData";
       <span class="guest-form__error">{{ errors.travelling_from }}</span>
     </label>
 
-    <button type="submit" @click="submitFormWithValidation">
-      {{ isUpdateMode ? "Update" : "Add" }}
-    </button>
+    <button type="submit" @click="submitFormWithValidation">Update</button>
     <button type="button" @click="resetForm">Reset</button>
+
+    <RouterLink to="/guests">
+      <button type="button">View All Guests</button>
+    </RouterLink>
   </form>
 </template>
 

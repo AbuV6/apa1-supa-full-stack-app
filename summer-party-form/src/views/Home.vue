@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import GuestForm from '../components/GuestForm.vue'
-import GuestGrid from '../components/GuestGrid.vue'
+import GuestForm from "../components/GuestForm.vue";
 </script>
 
 <template>
   <div>
     <GuestForm />
-    <GuestGrid />
   </div>
 </template>

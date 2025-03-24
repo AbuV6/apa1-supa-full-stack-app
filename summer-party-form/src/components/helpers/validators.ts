@@ -1,12 +1,8 @@
 import { form, errors, resetForm } from "./formHandler";
-import { selectedCardId } from "./cardData";
-import { useGuestStore } from "../../stores/guestList";
 import { supabase } from "../..//lib/supabase.js";
 
 // Function to validate and submit form data to Supabase
 export const submitFormWithValidation = async () => {
-  const store = useGuestStore();
-
   // Validate the form
   errors.name = form.name ? "" : "Name is required.";
 
@@ -32,11 +28,11 @@ export const submitFormWithValidation = async () => {
     : "Email is required.";
 
   const date_of_birthRegEx =
-    /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
+    /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
   errors.date_of_birth = form.date_of_birth
     ? date_of_birthRegEx.test(form.date_of_birth)
       ? ""
-      : "Valid Date of Birth format required DD/MM/YYYY"
+      : "Valid Date of Birth format required YYYY-MM-DD"
     : "Date of Birth is required.";
 
   errors.department = form.department ? "" : "Please select a department";

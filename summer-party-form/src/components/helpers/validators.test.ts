@@ -1,8 +1,6 @@
 import { expect, it, describe, beforeAll, vi } from "vitest";
 import { submitForm } from "./validators";
 import { reactive, createApp } from "vue";
-import { setActivePinia, createPinia } from "pinia";
-import { createTestingPinia } from "@pinia/testing";
 import { form } from "./formHandler";
 
 describe("testing validator function", () => {
@@ -16,16 +14,6 @@ describe("testing validator function", () => {
     form.department = "HR";
     form.meal_preference = "Halal";
     form.travelling_from = "Manchester";
-    setActivePinia(
-      createTestingPinia({
-        createSpy: vi.fn,
-        initialState: {
-          guests: {
-            guests: [],
-          },
-        },
-      })
-    );
   });
 
   it("validator good information", () => {
@@ -37,16 +25,6 @@ describe("testing validator function", () => {
   const app = createApp({});
   beforeAll(() => {
     form.name = "sonny";
-    setActivePinia(
-      createTestingPinia({
-        createSpy: vi.fn,
-        initialState: {
-          guests: {
-            guests: [],
-          },
-        },
-      })
-    );
   });
 
   it("validator bad information", () => {

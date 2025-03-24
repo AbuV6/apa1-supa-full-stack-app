@@ -68,7 +68,7 @@ import { submitFormWithValidation } from "./helpers/validators";
       <span class="guest-form__error">{{ errors.travelling_from }}</span>
     </label>
 
-    <button type="submit" @click="submitFormWithValidation">Update</button>
+    <button type="submit" @click="submitFormWithValidation">Add</button>
     <button type="button" @click="resetForm">Reset</button>
 
     <RouterLink to="/guests">

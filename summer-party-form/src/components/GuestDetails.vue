@@ -102,7 +102,7 @@ const borderColor = computed(() => {
   }
 
   &__info {
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: bold;
     color: #fff;
     margin-bottom: 10px;

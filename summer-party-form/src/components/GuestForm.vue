@@ -152,7 +152,7 @@ watch(
   color: #fff;
 
   &__title {
-    font-size: 2rem;
+    font-size: 40px;
     font-weight: bold;
     padding: 15px;
     border-radius: 10px;
@@ -189,7 +189,7 @@ watch(
   }
 
   &__error {
-    font-size: 0.9rem;
+    font-size: 24px;
     color: #ff5252;
     margin-top: 4px;
   }

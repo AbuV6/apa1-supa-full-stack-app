@@ -67,13 +67,13 @@ const borderColor = computed(() => {
   }
 
   &__name {
-    font-size: 1.8rem;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 10px;
   }
 
   &__info {
-    font-size: 1.1rem;
+    font-size: 16px;
     margin-bottom: 6px;
   }
 
@@ -83,7 +83,7 @@ const borderColor = computed(() => {
 
   &__button {
     padding: 12px 18px;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: bold;
     border: none;
     border-radius: 8px;
@@ -115,7 +115,7 @@ const borderColor = computed(() => {
     background: #ff00ff;
     color: #fff;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: bold;
     padding: 12px 18px;
     border-radius: 8px;

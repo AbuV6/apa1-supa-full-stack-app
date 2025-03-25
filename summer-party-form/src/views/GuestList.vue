@@ -193,7 +193,7 @@ onMounted(fetchGuests);
   }
 
   &__title {
-    font-size: 2rem;
+    font-size: 40px;
     margin-bottom: 20px;
   }
 
@@ -250,7 +250,7 @@ onMounted(fetchGuests);
   }
 
   &__title {
-    font-size: 1.8rem;
+    font-size: 35px;
     font-weight: bold;
     margin-bottom: 20px;
   }
@@ -258,7 +258,7 @@ onMounted(fetchGuests);
   &__label {
     display: block;
     text-align: left;
-    font-size: 1rem;
+    font-size: 28 px;
     font-weight: bold;
     margin-top: 10px;
     color: #fff;
@@ -267,7 +267,7 @@ onMounted(fetchGuests);
   &__input {
     width: 100%;
     padding: 10px;
-    font-size: 1rem;
+    font-size: 16px;
     border: none;
     border-radius: 8px;
     margin-top: 5px;
@@ -289,7 +289,7 @@ onMounted(fetchGuests);
 
   &__button {
     padding: 12px 18px;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: bold;
     border: none;
     border-radius: 8px;

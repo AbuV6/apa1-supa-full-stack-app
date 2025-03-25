@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { supabase } from "../lib/supabase.js";
 import GuestCard from "../components/GuestCard.vue";
 
 // Store guests from Supabase
 const guests = ref([]);
+
+// Default filter: show all guests
+const selectedFilter = ref("All");
 
 // State for edit modal
 const showModal = ref(false);
@@ -65,78 +68,114 @@ const deleteGuest = async (guestId: number) => {
   }
 };
 
+// Computed property to filter guests
+const filteredGuests = computed(() => {
+  if (selectedFilter.value === "All") {
+    return guests.value;
+  }
+  return guests.value.filter(
+    (guest) => guest.travelling_from === selectedFilter.value
+  );
+});
+
 onMounted(fetchGuests);
 </script>
 
 <template>
-  <div class="guest-list">
-    <h2>All Guests</h2>
-
-    <div class="guest-list__container">
-      <GuestCard
-        v-for="guest in guests"
-        :key="guest.id"
-        :name="guest.name"
-        :age="guest.age"
-        :phone="guest.phone"
-        :travelling_from="guest.travelling_from"
-        :id="guest.id"
-        :update="() => openEditModal(guest)"
-        :remove="() => deleteGuest(guest.id)" />
+  <div>
+    <div class="filter-container">
+      <label for="filter">Filter by City:</label>
+      <select v-model="selectedFilter">
+        <option value="All">All</option>
+        <option value="Manchester">Manchester</option>
+        <option value="London">London</option>
+      </select>
     </div>
 
-    <!-- Styled Edit Guest Modal -->
-    <div v-if="showModal" class="modal">
-      <div class="modal-content">
-        <h3>Edit Guest</h3>
+    <div class="guest-list">
+      <h2>All Guests</h2>
 
-        <label>Name:</label>
-        <input v-model="selectedGuest.name" type="text" />
+      <div class="guest-list__container">
+        <GuestCard
+          v-for="guest in filteredGuests"
+          :key="guest.id"
+          :name="guest.name"
+          :age="guest.age"
+          :phone="guest.phone"
+          :travelling_from="guest.travelling_from"
+          :id="guest.id"
+          :update="() => openEditModal(guest)"
+          :remove="() => deleteGuest(guest.id)" />
+      </div>
 
-        <label>Age:</label>
-        <input v-model="selectedGuest.age" type="number" />
+      <!-- Styled Edit Guest Modal -->
+      <div v-if="showModal" class="modal">
+        <div class="modal-content">
+          <h3>Edit Guest</h3>
 
-        <label>Phone:</label>
-        <input v-model="selectedGuest.phone" type="text" />
+          <label>Name:</label>
+          <input v-model="selectedGuest.name" type="text" />
 
-        <label>Email:</label>
-        <input v-model="selectedGuest.email" type="email" />
+          <label>Age:</label>
+          <input v-model="selectedGuest.age" type="number" />
 
-        <label>Date of Birth:</label>
-        <input v-model="selectedGuest.date_of_birth" type="date" />
+          <label>Phone:</label>
+          <input v-model="selectedGuest.phone" type="text" />
 
-        <label>Department:</label>
-        <select v-model="selectedGuest.department">
-          <option>HR</option>
-          <option>Engineering</option>
-          <option>Marketing</option>
-        </select>
+          <label>Email:</label>
+          <input v-model="selectedGuest.email" type="email" />
 
-        <label>Meal Preference:</label>
-        <select v-model="selectedGuest.meal_preference">
-          <option>Vegetarian</option>
-          <option>Non-Vegetarian</option>
-          <option>Vegan</option>
-        </select>
+          <label>Date of Birth:</label>
+          <input v-model="selectedGuest.date_of_birth" type="date" />
 
-        <label>Travelling From:</label>
-        <select v-model="selectedGuest.travelling_from">
-          <option>Manchester</option>
-          <option>London</option>
-          <option>Other</option>
-        </select>
+          <label>Department:</label>
+          <select v-model="selectedGuest.department">
+            <option>HR</option>
+            <option>Engineering</option>
+            <option>Marketing</option>
+          </select>
 
-        <div class="modal-buttons">
-          <button class="save-btn" @click="updateGuest">Save</button>
-          <button class="cancel-btn" @click="showModal = false">Cancel</button>
+          <label>Meal Preference:</label>
+          <select v-model="selectedGuest.meal_preference">
+            <option>Vegetarian</option>
+            <option>Non-Vegetarian</option>
+            <option>Vegan</option>
+          </select>
+
+          <label>Travelling From:</label>
+          <select v-model="selectedGuest.travelling_from">
+            <option>Manchester</option>
+            <option>London</option>
+            <option>Other</option>
+          </select>
+
+          <div class="modal-buttons">
+            <button class="save-btn" @click="updateGuest">Save</button>
+            <button class="cancel-btn" @click="showModal = false">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
+      <RouterLink class="guest-list__back-link" to="/">Go back</RouterLink>
     </div>
-    <RouterLink class="guest-list__back-link" to="/">Go back</RouterLink>
   </div>
 </template>
 
 <style scoped>
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.filter-container label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.filter-container select {
+  padding: 5px;
+  font-size: 16px;
+}
 .guest-list {
   text-align: center;
   padding: 20px;

@@ -3,9 +3,9 @@ import { computed, onMounted, ref, defineProps } from "vue";
 import { useRoute } from "vue-router";
 import { supabase } from "../lib/supabase";
 
-// Accept 'id' as a prop
+// Accept 'id' as a prop, removes vue warning in browser
 const props = defineProps({
-  id: String, // Define the 'id' prop
+  id: String,
 });
 
 const guest = ref("");
@@ -17,7 +17,7 @@ onMounted(async () => {
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .eq("id", route.params.id) // Or use props.id if applicable
+      .eq("id", route.params.id)
       .single(); // Fetch one record
 
     if (error) {
@@ -42,18 +42,22 @@ const borderColor = computed(() => {
 </script>
 
 <template>
-  <div class="guest-details">
-    <div>Name: {{ guest.name }}</div>
-    <div>Age: {{ guest.age }}</div>
-    <div>Phone: {{ guest.phone }}</div>
-    <div>Email: {{ guest.email }}</div>
-    <div>Date Of Birth: {{ guest.date_of_birth }}</div>
-    <div>Department: {{ guest.department }}</div>
-    <div>Meal Preference: {{ guest.meal_preference }}</div>
-    <div>Travelling From: {{ guest.travelling_from }}</div>
-    <RouterLink class="guest-details__back-link" to="/guests"
-      >Go back</RouterLink
-    >
+  <div>
+    <div class="guest-details">
+      <div>Name: {{ guest.name }}</div>
+      <div>Age: {{ guest.age }}</div>
+      <div>Phone: {{ guest.phone }}</div>
+      <div>Email: {{ guest.email }}</div>
+      <div>Date Of Birth: {{ guest.date_of_birth }}</div>
+      <div>Department: {{ guest.department }}</div>
+      <div>Meal Preference: {{ guest.meal_preference }}</div>
+      <div>Travelling From: {{ guest.travelling_from }}</div>
+    </div>
+    <div>
+      <RouterLink class="guest-details__back-link" to="/guests"
+        >Go back</RouterLink
+      >
+    </div>
   </div>
 </template>
 
@@ -69,6 +73,7 @@ const borderColor = computed(() => {
   margin: auto;
   color: #fff;
   text-align: center;
+  padding: 20px;
 
   &:hover {
     transform: scale(1.05);
@@ -139,6 +144,7 @@ const borderColor = computed(() => {
 
   &__back-link {
     display: inline-block;
+    margin-top: 20px;
     padding: 10px 20px;
     background-color: #007bff;
     color: white;

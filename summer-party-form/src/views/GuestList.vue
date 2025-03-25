@@ -191,6 +191,7 @@ onMounted(fetchGuests);
 
 .guest-list__back-link {
   display: inline-block;
+  margin-top: 20px;
   padding: 10px 20px;
   background-color: #007bff;
   color: white;

@@ -23,14 +23,24 @@ const borderColor = computed(() => {
 <template>
   <div class="guest-card">
     <div class="guest-card__body">
-      <h5>{{ name }}</h5>
-      <p>Age: {{ age }}</p>
-      <p>Phone: {{ phone }}</p>
-      <button @click="update">Update</button>
-      <button @click="remove">Delete</button>
-      <RouterLink class="guest-card__nav-link" :to="`/guest/${id}`"
-        >View</RouterLink
-      >
+      <h5 class="guest-card__name">{{ name }}</h5>
+      <p class="guest-card__info">Age: {{ age }}</p>
+      <p class="guest-card__info">Phone: {{ phone }}</p>
+      <div class="guest-card__actions">
+        <button
+          class="guest-card__button guest-card__button--update"
+          @click="update">
+          Update
+        </button>
+        <button
+          class="guest-card__button guest-card__button--delete"
+          @click="remove">
+          Delete
+        </button>
+        <RouterLink class="guest-card__link" :to="`/guest/${id}`"
+          >View</RouterLink
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -41,12 +51,11 @@ const borderColor = computed(() => {
   border-radius: 12px;
   background: linear-gradient(135deg, #1bffff, #2e3192);
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
   transition: transform 0.1s ease-in-out;
   max-width: 350px;
   margin: auto;
-  color: #fff;
   text-align: center;
+  color: #fff;
 
   &:hover {
     transform: scale(1.05);
@@ -55,21 +64,24 @@ const borderColor = computed(() => {
 
   &__body {
     padding: 24px;
-
-    h5 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
   }
 
-  button {
+  &__name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  &__actions {
+    margin-top: 12px;
+  }
+
+  &__button {
     padding: 12px 18px;
     font-size: 1rem;
     font-weight: bold;
@@ -79,8 +91,8 @@ const borderColor = computed(() => {
     transition: all 0.3s ease-in-out;
     margin: 6px;
 
-    &:first-child {
-      background: #ff00ff;
+    &--update {
+      background: #004085;
       color: #fff;
 
       &:hover {
@@ -88,7 +100,7 @@ const borderColor = computed(() => {
       }
     }
 
-    &:nth-child(2) {
+    &--delete {
       background: #ff5252;
       color: white;
 
@@ -98,7 +110,7 @@ const borderColor = computed(() => {
     }
   }
 
-  &__nav-link {
+  &__link {
     display: inline-block;
     background: #ff00ff;
     color: #fff;

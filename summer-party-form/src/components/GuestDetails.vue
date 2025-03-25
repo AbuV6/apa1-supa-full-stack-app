@@ -42,104 +42,70 @@ const borderColor = computed(() => {
 </script>
 
 <template>
-  <div>
-    <div class="guest-details">
-      <div>Name: {{ guest.name }}</div>
-      <div>Age: {{ guest.age }}</div>
-      <div>Phone: {{ guest.phone }}</div>
-      <div>Email: {{ guest.email }}</div>
-      <div>Date Of Birth: {{ guest.date_of_birth }}</div>
-      <div>Department: {{ guest.department }}</div>
-      <div>Meal Preference: {{ guest.meal_preference }}</div>
-      <div>Travelling From: {{ guest.travelling_from }}</div>
+  <div class="guest-details">
+    <div class="guest-details__card">
+      <div class="guest-details__info">
+        <strong>Name:</strong> {{ guest.name }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Age:</strong> {{ guest.age }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Phone:</strong> {{ guest.phone }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Email:</strong> {{ guest.email }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Date of Birth:</strong> {{ guest.date_of_birth }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Department:</strong> {{ guest.department }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Meal Preference:</strong> {{ guest.meal_preference }}
+      </div>
+      <div class="guest-details__info">
+        <strong>Travelling From:</strong> {{ guest.travelling_from }}
+      </div>
     </div>
-    <div>
-      <RouterLink class="guest-details__back-link" to="/guests"
-        >Go back</RouterLink
-      >
-    </div>
+
+    <RouterLink class="guest-details__back-link" to="/guests"
+      >Go back</RouterLink
+    >
   </div>
 </template>
 
 <style scoped lang="scss">
 .guest-details {
-  border: 5px solid v-bind(borderColor);
-  border-radius: 12px;
-  background: linear-gradient(135deg, #1bffff, #2e3192);
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-  max-width: 350px;
-  margin: auto;
-  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 20px;
+  margin: 40px auto;
+  max-width: 400px;
 
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.25);
-  }
-
-  &__body {
-    padding: 24px;
-
-    h5 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-  }
-
-  button {
-    padding: 12px 18px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    margin: 6px;
-
-    &:first-child {
-      background: #ff00ff;
-      color: #fff;
-
-      &:hover {
-        background: #d300d3;
-      }
-    }
-
-    &:nth-child(2) {
-      background: #ff5252;
-      color: white;
-
-      &:hover {
-        background: #d32f2f;
-      }
-    }
-  }
-
-  &__nav-link {
-    display: inline-block;
-    background: #ff00ff;
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 12px 18px;
-    border-radius: 8px;
-    margin-top: 10px;
-    transition: all 0.3s ease-in-out;
+  &__card {
+    border: 5px solid v-bind(borderColor);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1bffff, #2e3192);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
 
     &:hover {
-      background: #d300d3;
+      transform: scale(1.05);
+      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.25);
     }
+  }
+
+  &__info {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
   }
 
   &__back-link {
@@ -152,23 +118,16 @@ const borderColor = computed(() => {
     border-radius: 5px;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
-  }
 
-  &__back-link:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
+    &:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
 
-  &__back-link:active {
-    background-color: #004085;
-    transform: scale(0.98);
-  }
-
-  .loading {
-    font-size: 1.2rem;
-    color: #fff;
-    text-align: center;
-    margin-top: 50px;
+    &:active {
+      background-color: #004085;
+      transform: scale(0.98);
+    }
   }
 }
 </style>

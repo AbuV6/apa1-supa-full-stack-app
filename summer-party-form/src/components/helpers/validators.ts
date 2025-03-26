@@ -1,5 +1,5 @@
-import { form, errors, resetForm } from "./formHandler";
-import { supabase } from "../..//lib/supabase.js";
+import { form, errors, resetForm } from "./formHandler.js";
+import { supabase } from "../../lib/supabase.js";
 
 // Function to validate and submit form data to Supabase
 export const submitFormWithValidation = async () => {

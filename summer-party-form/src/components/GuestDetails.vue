@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, defineProps } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { supabase } from "../lib/supabase";
 
